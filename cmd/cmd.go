@@ -72,8 +72,11 @@ func update() error {
 		return nil
 	}
 
+	fmt.Printf("missing plugin: %s\n", strings.Join(toInstall, " "))
+
 	// TODO: install missing plugins
 	for i := range toInstall {
+		fmt.Printf("install missing plugin %s...\n", toInstall[i])
 		err := util.InstallPluginByGit(toInstall[i], util.PluginLocation.Git[toInstall[i]])
 		if err != nil {
 			fmt.Printf("install missing plugins %s error: %v\n", toInstall[i], err)

@@ -2,7 +2,9 @@ package util
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
+	"io"
 	"os"
 	"os/exec"
 	"regexp"
@@ -67,6 +69,11 @@ func DetectNotInstalledPlugin(plugin []string) ([]string, error) {
 
 // Default install location: custom/plugin
 func InstallPluginByGit(pluginname, gitPath string) error {
+	var out bytes.Buffer
+	mw := io.MultiWriter(os.Stdout, &out)
 	cmd := exec.Command("git", "clone", gitPath, PLUGIN_HOLDER_CUSTOM+pluginname)
+	cmd.Stdout = mw
+	cmd.Stderr = mw
+	// go func() { fmt.Println(mw) }()
 	return cmd.Run()
 }
