@@ -66,7 +66,7 @@ func DetectNotInstalledPlugin(plugin []string) ([]string, error) {
 }
 
 // Default install location: custom/plugin
-func InstallPlugin(pluginname, gitPath string) error {
-	cmd := exec.Command("git", "clone", gitPath, pluginname)
+func InstallPluginByGit(pluginname, gitPath string) error {
+	cmd := exec.Command("git", "clone", gitPath, PLUGIN_HOLDER_CUSTOM+pluginname)
 	return cmd.Run()
 }
