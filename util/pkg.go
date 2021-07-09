@@ -30,6 +30,5 @@ func setupPluginLocaton() error {
 		fmt.Println("get package file error.")
 		return err
 	}
-	fmt.Println(PluginLocation)
 	return nil
 }
