@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"gopkg.in/yaml.v2"
+	"github.com/BurntSushi/toml"
 )
 
 type Plugin struct {
@@ -15,15 +15,21 @@ type Plugin struct {
 var PluginLocation = new(Plugin)
 
 func setupPluginLocaton() error {
-	resp, err := http.Get("https://xylonx.github.io/zshx/package.yaml")
+	resp, err := http.Get("https://xylonx.github.io/zshx/package.toml")
 	if err != nil {
 		fmt.Println("get package file error.")
 		return err
 	}
-	bs, _ := ioutil.ReadAll(resp.Body)
-	if err := yaml.Unmarshal(bs, PluginLocation); err != nil {
-		fmt.Println("unmarshal error.")
+	bs, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("get package file error.")
 		return err
 	}
+	err = toml.Unmarshal(bs, PluginLocation)
+	if err != nil {
+		fmt.Println("get package file error.")
+		return err
+	}
+	fmt.Println(PluginLocation)
 	return nil
 }
