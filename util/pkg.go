@@ -3,7 +3,7 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
+	"net/http"
 
 	"gopkg.in/yaml.v2"
 )
@@ -15,12 +15,12 @@ type Plugin struct {
 var PluginLocation = new(Plugin)
 
 func setupPluginLocaton() error {
-	file, err := os.Open("./package.yaml")
+	resp, err := http.Get("https://xylonx.github.io/zshx/package.yaml")
 	if err != nil {
-		fmt.Println("get config file error")
+		fmt.Println("get package file error.")
 		return err
 	}
-	bs, _ := ioutil.ReadAll(file)
+	bs, _ := ioutil.ReadAll(resp.Body)
 	if err := yaml.Unmarshal(bs, PluginLocation); err != nil {
 		fmt.Println("unmarshal error.")
 		return err
