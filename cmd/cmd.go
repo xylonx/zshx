@@ -16,7 +16,7 @@ const (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:   "zsh-plugin-helper",
+		Use:   "zshx",
 		Short: "a command tool to install oh my zsh plugins",
 		PreRun: func(cmd *cobra.Command, args []string) {
 			if err := util.Setup(); err != nil {
