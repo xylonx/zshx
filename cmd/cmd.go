@@ -26,7 +26,7 @@ var (
 		},
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("install missing zsh plugin...")
-			if err := update(); err != nil {
+			if err := installMissing(); err != nil {
 				log.Fatalln(err)
 			}
 		},
@@ -46,7 +46,7 @@ func Execute() {
 	}
 }
 
-func update() error {
+func installMissing() error {
 	if zshrcPath == DEFAULT_ZSHRC_PATH {
 		home, err := os.UserHomeDir()
 		if err != nil {
