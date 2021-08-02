@@ -15,7 +15,7 @@ type Plugin struct {
 var PluginLocation = new(Plugin)
 
 func setupPluginLocaton() error {
-	resp, err := http.Get("https://xylonx.github.io/zshx/package.toml")
+	resp, err := http.Get("https://raw.githubusercontent.com/xylon/zshx/master/package.toml")
 	if err != nil {
 		fmt.Println("get package file error.")
 		return err
